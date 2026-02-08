@@ -1,13 +1,23 @@
 # Paper2Notion - Gmail to Notion Paper Citation Pipeline
 
-Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with intelligent TLDRs, and add them to your Notion database.
+Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database.
+
+
+
+**Google Scholar Alert Setting**
+
+![image-20260208113240518](./assets/image-20260208113240518.png)
+
+**Notion Database Receiving**
+
+![image-20260208111741161](./assets/image-20260208111741161.png)
 
 ## Features
 
 - 📧 **Gmail Integration**: Automatically polls Google Scholar Alert emails
-- 📚 **Multi-Paper Extraction**: Extracts all citing papers from each email (not just one)
-- 🤖 **AI Summarization**: Uses Claude to generate comprehensive paper summaries
-- 💡 **Intelligent TLDR**: Generates proper one-sentence summaries (not naive truncation)
+- 📚 **Multi-Paper Extraction**: Extracts all citing papers from each email
+- 🤖 **AI Summarization**: Uses LLMs to generate comprehensive paper summaries
+- 💡 **Intelligent TLDR**: Generates proper one-sentence summaries
 - 📝 **Notion Database**: Automatically adds papers with metadata to your Notion workspace
 - ⏰ **Scheduled Processing**: Runs every 6 hours automatically
 
@@ -16,7 +26,7 @@ Automatically fetch paper citations from Google Scholar emails, extract all citi
 - Python 3.8+
 - Google Account with Gmail
 - Notion Account
-- Anthropic API Key (Claude)
+- LLM(e.g. Anthropic Claude) API Key
 
 ## Installation
 
@@ -53,11 +63,12 @@ pip install -r requirements.txt
    - Click "Create Credentials" → "OAuth client ID"
    - If prompted, configure the OAuth consent screen first:
      - User Type: External
-     - Add required scopes: `https://www.googleapis.com/auth/gmail.modify`
-   - Application type: Desktop application
-   - Click "Create"
+   - Authorize redirect urls: `http://localhost:8080/` (if on clouds, it should be changed accordingly)
+   
+   <img src="./assets/image-20260208112609700.png" alt="image-20260208112609700" style="zoom: 33%;" />
 
 4. **Download Credentials**
+   
    - Click the download icon next to your created credential
    - Save the JSON file as `gmail_credentials.json` in the project root
 
@@ -69,28 +80,22 @@ pip install -r requirements.txt
    - Name: `Paper2Notion`
    - Click "Submit"
    - Copy the "Internal Integration Token" (you'll need this)
-
 2. **Create a Notion Database**
    - In Notion, create a new database with the following properties:
-     - **名称** (Title): Paper title
+     - **Name** (Title): Paper title
      - **seed_paper** (Text): The original paper being cited
      - **url** (URL): Link to the paper on arXiv
      - **TLDR** (Text): One-sentence summary
      - **date_received** (Date): When the email was received
      - **Gmail Msg ID** (Text): Gmail message ID for tracking
-
 3. **Share Database with Integration**
-   - Open your Paper2Notion database in Notion
-   - Click "Share" → "Invite"
-   - Select your `Paper2Notion` integration
-   - Click "Invite"
-
+   - Go back to your integration page.
+   - Choose "Access" Header
+   - Choose the page containing the notion database that you want to get access to.
 4. **Get Database ID**
    - Open your database in Notion
    - Copy the URL: `https://www.notion.so/[DATABASE_ID]?v=[VIEW_ID]`
    - The `DATABASE_ID` is the long string before the `?`
-   - Format it as: `[first 8 chars]-[next 4 chars]-[next 4 chars]-[next 4 chars]-[last 12 chars]`
-   - Example: `a1b2c3d4-e5f6-g7h8-i9j0-k1l2m3n4o5p6`
 
 ### Step 3: Anthropic API Setup
 
@@ -105,13 +110,15 @@ pip install -r requirements.txt
 
 Create a `.env` file in the project root with your credentials:
 
-```env
+```shell
 GMAIL_CREDENTIALS_FILE=gmail_credentials.json
 GMAIL_TOKEN_FILE=gmail_token.pickle
-NOTION_API_KEY=your_notion_internal_integration_token
-NOTION_DATABASE_ID=your_notion_database_id
-ANTHROPIC_API_KEY=your_anthropic_api_key
+NOTION_API_KEY=your_notion_internal_integration_token # replace with your own
+NOTION_DATABASE_ID=your_notion_database_id # replace with your own 
+ANTHROPIC_API_KEY=your_anthropic_api_key # replace with your own
 GOOGLE_SCHOLAR_SENDER=scholaralerts-noreply@google.com
+
+# write your summary prompt in here.
 SUMMARY_PROMPT=Provide a comprehensive summary of this paper including: 1) Main contribution 2) Methodology 3) Key results 4) Significance
 ```
 
@@ -119,14 +126,15 @@ SUMMARY_PROMPT=Provide a comprehensive summary of this paper including: 1) Main 
 
 Run the setup script to authenticate with Gmail:
 
+(tips: for friends inland remember to open TUN mode in your VPN setting.)
+
 ```bash
 python setup_gmail.py
 ```
 
-This will:
+This will automatically:
 1. Open a browser window for you to authorize the application
 2. Save the OAuth token to `gmail_token.pickle`
-3. You only need to do this once
 
 ## Running the Application
 
@@ -170,78 +178,27 @@ Your Notion database should have these properties:
 
 | Property | Type | Description |
 |----------|------|-------------|
-| 名称 | Title | Paper title (auto-filled) |
+| Name | Title | Paper title (auto-filled) |
 | seed_paper | Text | The original paper being cited |
 | url | URL | Link to the paper on arXiv |
 | TLDR | Text | One-sentence AI-generated summary |
 | date_received | Date | When the email was received |
 | Gmail Msg ID | Text | Gmail message ID for tracking |
 
-## Troubleshooting
 
-### Gmail Authentication Issues
 
-- **"Gmail credentials not found"**: Run `python setup_gmail.py` again
-- **"Invalid credentials"**: Delete `gmail_token.pickle` and run setup again
-- **"Gmail API not enabled"**: Go to Google Cloud Console and enable Gmail API
 
-### Notion Connection Issues
 
-- **"Database not found"**: Check your `NOTION_DATABASE_ID` format
-- **"Permission denied"**: Make sure you shared the database with the integration
-- **"Invalid API key"**: Verify your `NOTION_API_KEY` is correct
+## Todo
 
-### Paper Not Found
++ Markdown formatting issue in notion.
++ Cloud server migration.
 
-- Some papers may not be available on arXiv
-- The application will skip papers that can't be found
-- Check `gs2notion.log` for details
 
-### Logs
 
-All activity is logged to `gs2notion.log`. Check this file for debugging:
 
-```bash
-tail -f gs2notion.log
-```
 
-## Configuration Files
+## Contact
 
-- `config.py`: Main configuration (API endpoints, prompts)
-- `.env`: Sensitive credentials (not committed to git)
-- `requirements.txt`: Python dependencies
+yougotaaa@gmail.com
 
-## Project Structure
-
-```
-Paper2Notion/
-├── main.py                 # Main application entry point
-├── gmail_handler.py        # Gmail API integration
-├── gmail_auth.py           # Gmail OAuth authentication
-├── paper_fetcher.py        # arXiv paper fetching
-├── summarizer.py           # Claude summarization
-├── notion_handler.py       # Notion database integration
-├── config.py               # Configuration settings
-├── setup_gmail.py          # Gmail setup script
-├── get_notion_db_id.py     # Notion database ID helper
-├── requirements.txt        # Python dependencies
-├── run_gs2notion.bat       # Windows batch runner
-└── README.md               # This file
-```
-
-## API Costs
-
-- **Gmail API**: Free (included with Google account)
-- **Notion API**: Free (included with Notion account)
-- **Anthropic API**: Paid (Claude usage) - ~$0.01-0.05 per paper summary
-
-## License
-
-See LICENSE file for details.
-
-## Support
-
-For issues or questions:
-1. Check `TROUBLESHOOTING.md`
-2. Review `gs2notion.log` for error messages
-3. Check `SOLUTIONS.md` for common problems
