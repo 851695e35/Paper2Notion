@@ -69,7 +69,8 @@ pip install -r requirements.txt
 
 4. **Download Credentials**
    
-   - Click the download icon next to your created credential
+   - Go to "APIs & Services" → "OAuth 2.0 Client IDs", click the created instance (Paper2Notion)
+   - Click the `add secret` bottom, then download the new secret. 
    - Save the JSON file as `gmail_credentials.json` in the project root
 
 ### Step 2: Notion Setup
