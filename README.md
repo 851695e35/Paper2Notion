@@ -1,4 +1,4 @@
-# Paper2Notion - Gmail to Notion Paper Citation Pipeline
+# Paper2Notion - Gmail Alerts Paper to Notion Pipeline
 
 Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database.
 
@@ -26,7 +26,7 @@ Automatically fetch paper citations from Google Scholar emails, extract all citi
 - Python 3.8+
 - Google Account with Gmail
 - Notion Account
-- LLM(e.g. Anthropic Claude) API Key
+- LLM(e.g. Anthropic opus) API Key
 
 ## Installation
 
@@ -112,8 +112,8 @@ pip install -r requirements.txt
 Create a `.env` file in the project root with your credentials:
 
 ```shell
-GMAIL_CREDENTIALS_FILE=gmail_credentials.json
-GMAIL_TOKEN_FILE=gmail_token.pickle
+GMAIL_CREDENTIALS_FILE=gmail_credentials.json # download and rename it
+GMAIL_TOKEN_FILE=gmail_token.json # automatically generated when logged in
 NOTION_API_KEY=your_notion_internal_integration_token # replace with your own
 NOTION_DATABASE_ID=your_notion_database_id # replace with your own 
 ANTHROPIC_API_KEY=your_anthropic_api_key # replace with your own
@@ -135,7 +135,7 @@ python setup_gmail.py
 
 This will automatically:
 1. Open a browser window for you to authorize the application
-2. Save the OAuth token to `gmail_token.pickle`
+2. Save the OAuth token to `gmail_token.json`
 
 ## Running the Application
 
@@ -168,7 +168,7 @@ nohup python main.py > gs2notion.log 2>&1 &
 1. **Email Polling**: Checks Gmail every 6 hours for unread emails from Google Scholar
 2. **Paper Extraction**: Extracts all citing papers from each email
 3. **Content Fetching**: Searches arXiv for each paper's full text or abstract
-4. **Summarization**: Uses Claude to generate comprehensive summaries
+4. **Summarization**: Uses LLMs to generate comprehensive summaries
 5. **TLDR Generation**: Creates intelligent one-sentence summaries
 6. **Notion Upload**: Adds papers to your Notion database with all metadata
 7. **Email Marking**: Marks processed emails as read

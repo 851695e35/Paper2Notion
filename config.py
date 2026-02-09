@@ -5,7 +5,7 @@ load_dotenv()
 
 # Gmail API
 GMAIL_CREDENTIALS_FILE = os.getenv("GMAIL_CREDENTIALS_FILE", "gmail_credentials.json")
-GMAIL_TOKEN_FILE = os.getenv("GMAIL_TOKEN_FILE", "gmail_token.pickle")
+GMAIL_TOKEN_FILE = os.getenv("GMAIL_TOKEN_FILE", "gmail_token.json")
 
 # Notion API
 NOTION_API_KEY = os.getenv("NOTION_API_KEY")
