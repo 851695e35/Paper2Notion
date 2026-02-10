@@ -2,8 +2,6 @@
 
 Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database, providing a more customized track on targeted papers.
 
-
-
 **Google Scholar Alert Setting**
 
 ![image-20260208113240518](./assets/image-20260208113240518.png)
@@ -11,6 +9,12 @@ Automatically fetch paper citations from Google Scholar emails, extract all citi
 **Notion Database Receiving**
 
 ![image-20260208111741161](./assets/image-20260208111741161.png)
+
+
+
+## API Sponsors
+
+**[Siray AI]([https://www.siray.ai/)** provides the high-performance API infrastructure for this project. ![Siray AI Logo](./assets/sirayai.svg)
 
 ## Features
 
@@ -20,6 +24,15 @@ Automatically fetch paper citations from Google Scholar emails, extract all citi
 - 💡 **Intelligent TLDR**: Generates proper one-sentence summaries
 - 📝 **Notion Database**: Automatically adds papers with metadata to your Notion workspace
 - ⏰ **Scheduled Processing**: Runs every 6 hours automatically
+
+
+
+## Todo
+
++ Markdown formatting issue in notion.
++ Cloud server migration.
+
+
 
 ## Prerequisites
 
@@ -189,11 +202,6 @@ Your Notion database should have these properties:
 
 
 
-
-## Todo
-
-+ Markdown formatting issue in notion.
-+ Cloud server migration.
 
 
 
