@@ -14,7 +14,9 @@ Automatically fetch paper citations from Google Scholar emails, extract all citi
 
 ## API Sponsors
 
-**[Siray AI]([https://www.siray.ai/)** provides the high-performance API infrastructure for this project. ![Siray AI Logo](./assets/sirayai.svg)
+ [Siray AI](https://www.siray.ai/) provides the high-performance API infrastructure for this project. <a href="https://www.siray.ai/"><img src="./assets/sirayai.svg" width="120" alt="Siray AI logo"></a>
+
+
 
 ## Features
 
