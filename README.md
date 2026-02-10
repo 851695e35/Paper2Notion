@@ -1,6 +1,6 @@
 # Paper2Notion - Gmail Alerts Paper to Notion Pipeline
 
-Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database.
+Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database, providing a more customized track on targeted papers or authors.
 
 
 
@@ -68,7 +68,7 @@ pip install -r requirements.txt
    <img src="./assets/image-20260208112609700.png" alt="image-20260208112609700" style="zoom: 33%;" />
 
 4. **Download Credentials**
-   
+  
    - Go to "APIs & Services" → "OAuth 2.0 Client IDs", click the created instance (Paper2Notion)
    - Click the `add secret` bottom, then download the new secret. 
    - Save the JSON file as `gmail_credentials.json` in the project root
@@ -201,5 +201,7 @@ Your Notion database should have these properties:
 
 ## Contact
 
-yougotaaa@gmail.com
+Feel free to contact if you have any trouble or suggestions for the scripts.
+
+liangyuy001@gmail.com
 
