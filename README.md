@@ -1,6 +1,6 @@
 # Paper2Notion - Gmail Alerts Paper to Notion Pipeline
 
-Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database, providing a more customized track on targeted papers or authors.
+Automatically fetch paper citations from Google Scholar emails, extract all citing papers, generate AI-powered summaries with TLDRs, and add them to your Notion database, providing a more customized track on targeted papers.
 
 
 
