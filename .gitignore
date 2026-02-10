@@ -2,6 +2,8 @@
 .env
 gmail_credentials.json
 gmail_token.pickle
+gmail_token.json
+client_secret_*.json
 *.key
 *.pem
 
